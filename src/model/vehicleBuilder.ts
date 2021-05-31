@@ -1,3 +1,4 @@
+import { Vehicle } from './vehicle';
 import { VehicleInterface } from './vehicleInterface';
 
 export class VehicleBuilder implements VehicleInterface {
@@ -30,5 +31,9 @@ export class VehicleBuilder implements VehicleInterface {
   withFirstRegistrationDate(date: Date): this & Pick<VehicleInterface, 'firstRegistrationDate'> {
     this.firstRegistrationDate = date;
     return this;
+  }
+
+  build(this: Vehicle) {
+    return new Vehicle(this);
   }
 }
