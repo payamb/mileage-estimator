@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.ts",
-
+  "scripts": {
+    "test": "jest",
+    "lint": "tslint 'src/**/*.ts'"
+  },
   "author": "",
   "license": "ISC",
   "engines": {
