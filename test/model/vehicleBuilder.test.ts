@@ -1,3 +1,4 @@
+import { Vehicle } from '../../src/model/vehicle';
 import { VehicleBuilder } from '../../src/model/vehicleBuilder';
 
 describe('VehicleBuilder', () => {
