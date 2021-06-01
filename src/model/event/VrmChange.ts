@@ -1,6 +1,6 @@
 import { VehicleEventInterface } from './../vehicleEventInterfce';
 
-export class VrmChange implements VehicleEventInterface {
+export class VrmChangeEvent implements VehicleEventInterface {
   date: Date;
   fromVrm: string;
   toVRM: string;

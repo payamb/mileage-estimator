@@ -1,6 +1,6 @@
 import { VehicleEventInterface } from './../vehicleEventInterfce';
 
-export class MotTest implements VehicleEventInterface {
+export class MotTestEvent implements VehicleEventInterface {
   date: Date;
   mileage: number;
   result: boolean;
