@@ -1,4 +1,4 @@
-import { VehicleEventInterface } from "./vehicleEventInterfce";
+import { VehicleEventInterface } from './vehicleEventInterfce';
 
 export interface VehicleInterface {
   id: number;
@@ -6,5 +6,5 @@ export interface VehicleInterface {
   make: string;
   model: string;
   firstRegistrationDate: Date;
-  events?: Array<VehicleEventInterface>
+  events: Array<VehicleEventInterface>
 }
