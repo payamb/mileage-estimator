@@ -9,4 +9,5 @@ export interface VehicleInterface {
   events?: Array<VehicleEventInterface>
 
   addEvent?(event: VehicleEventInterface): void;
+  getEvents?(): Array<VehicleEventInterface>;
 }
