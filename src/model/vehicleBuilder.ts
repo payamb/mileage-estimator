@@ -1,36 +1,37 @@
 import { Vehicle } from './vehicle';
 import { VehicleInterface } from './vehicleInterface';
+import { VehicleEventInterface } from './vehicleEventInterfce';
 
-export class VehicleBuilder implements VehicleInterface {
+export class VehicleBuilder implements Partial<VehicleInterface> {
   id: number;
   vrm: string;
   make: string;
   model: string;
   firstRegistrationDate: Date;
+  events: Array<VehicleEventInterface> = [];
 
   withId(id: number): this & Pick<VehicleInterface, 'id'> {
-    this.id = id;
-    return this;
+    return Object.assign(this, { id: id });
   }
 
   withVrm(vrm: string): this & Pick<VehicleInterface, 'vrm'> {
-    this.vrm = vrm;
-    return this;
+    return Object.assign(this, { vrm: vrm });
   }
 
   withMake(make: string): this & Pick<VehicleInterface, 'make'> {
-    this.make = make;
-    return this;
+    return Object.assign(this, { make: make });
   }
 
   withModel(model: string): this & Pick<VehicleInterface, 'make'> {
-    this.model = model;
-    return this;
+    return Object.assign(this, { model: model });
   }
 
   withFirstRegistrationDate(date: Date): this & Pick<VehicleInterface, 'firstRegistrationDate'> {
-    this.firstRegistrationDate = date;
-    return this;
+    return Object.assign(this, { firstRegistrationDate: date });
+  }
+
+  withEvents(events: Array<VehicleEventInterface>): this & Pick<VehicleInterface, 'events'> {
+    return Object.assign(this, { events: events });
   }
 
   build(this: Vehicle) {
