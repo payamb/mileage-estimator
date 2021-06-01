@@ -10,7 +10,7 @@ describe('Vehicle', () => {
       .withVrm('a1233b')
       .withFirstRegistrationDate(new Date())
       .build();
-  });
 
-  Vehicle.addEvent();
+      vehicle.addEvent();
+  });
 });
