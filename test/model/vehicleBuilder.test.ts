@@ -18,5 +18,6 @@ describe('VehicleBuilder', () => {
     expect(vehicle.model).toEqual('1989');
     expect(vehicle.vrm).toEqual('a1233b');
     expect(vehicle.firstRegistrationDate).toEqual(regDate);
+    expect(vehicle.events).toEqual([]);
   });
 });

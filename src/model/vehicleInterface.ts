@@ -6,8 +6,5 @@ export interface VehicleInterface {
   make: string;
   model: string;
   firstRegistrationDate: Date;
-  events?: Array<VehicleEventInterface>
-
-  addEvent?(event: VehicleEventInterface): void;
-  getEvents?(): Array<VehicleEventInterface>;
+  events: Array<VehicleEventInterface>
 }
