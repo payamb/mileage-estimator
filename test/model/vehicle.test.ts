@@ -11,6 +11,6 @@ describe('Vehicle', () => {
       .withFirstRegistrationDate(new Date())
       .build();
 
-      vehicle.addEvent();
+      vehicle.getEvents();
   });
 });
