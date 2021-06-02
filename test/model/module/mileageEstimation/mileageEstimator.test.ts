@@ -7,15 +7,23 @@ describe('EstimateMileage Module', () => {
   it('Should calculate average annual mileage', () => {
 
     const vehicle = new Vehicle({
-      id: 123, 
-      make: 'ford', 
-      model: '1989', 
-      vrm: 'a123ed', 
+      id: 123,
+      make: 'ford',
+      model: '1989',
+      vrm: 'a123ed',
       firstRegistrationDate: new Date(),
       events: []
     });
 
     const advertisedForSaleEvent = new AdvertisedForSaleEvent();
-    vehicle.events.push(advertisedForSaleEvent);
+    
+    vehicle
+      .events
+      .push(advertisedForSaleEvent);
+
+    const estimator = new MileageEstimator()
+      .createFrom(vehicle);
+
+    expect(estimator.calculateAnnualMileage()).toEqual(0);
   });
 });
