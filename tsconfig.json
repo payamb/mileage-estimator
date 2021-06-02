@@ -2,9 +2,10 @@
   "extends": "ts-node/node14/tsconfig.json",
   "ts-node": {
     "transpileOnly": false,
-    "files": true
+    "files": true,
   },
   "compilerOptions": {
+    "lib": ["es2017"],
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
