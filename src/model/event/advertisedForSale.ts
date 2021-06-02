@@ -10,6 +10,6 @@ export class AdvertisedForSaleEvent implements VehicleEventInterface {
   }
 
   hasMileageData(): boolean {
-    return true;
+    return (this.mileage !== undefined) ?? false;
   }
 }
