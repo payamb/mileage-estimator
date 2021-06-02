@@ -1,6 +1,6 @@
 import { Vehicle } from './../../../../src/model/vehicle';
-import { calculateMileage } from './../../../../src/module/mileageEstimation/calculateMileage';
-import { AdvertisedForSaleEvent } from './../../src/model/event/advertisedForSale';
+import { MileageEstimator } from '../../../../src/module/mileageEstimation/mileageEstimator';
+import { AdvertisedForSaleEvent } from './../../../../src/model/event/advertisedForSale';
 // import { MotTestEvent } from './../../src/model/event/MotTest';
 
 describe('EstimateMileage Module', () => {
