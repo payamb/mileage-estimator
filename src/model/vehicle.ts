@@ -7,7 +7,7 @@ export class Vehicle implements VehicleInterface {
   make: string;
   model: string;
   firstRegistrationDate: Date;
-  events: Array<VehicleEventInterface> = [];
+  events: VehicleEventInterface[] = [];
 
   constructor(vehicle: Vehicle) {
     Object.assign(this, vehicle);

@@ -7,11 +7,13 @@ export class MileageEstimator implements MileageEstimatorInterface {
   defaultAnnualMileage = 7900;
 
   createFrom(vehicle: Vehicle) {
-    return Object.assign(this, { vehicle: vehicle });
+    return Object.assign(this, { vehicle });
   };
 
   calculateAnnualMileage(): number {
     const events = this.vehicle.events;
+
+    if (events.length === 0) return this.defaultAnnualMileage;
 
     events.sort((a: VehicleEventInterface, b: VehicleEventInterface) => {
       return a.date.getTime() - b.date.getTime();
@@ -35,18 +37,14 @@ export class MileageEstimator implements MileageEstimatorInterface {
     return averageMileage;
   }
 
-  estimateCurrentMileage(): number {
-    return 0;
-  }
-
   private divideMileageByNofYears(mileage: number, numberOfYears: number): number {
     if (mileage <= 0) return 0;
 
     const average = (mileage / numberOfYears).toFixed(0);
-    return parseInt(average);
+    return parseInt(average, 10);
   }
 
-  private getYearRange(from: Date, to: Date): Array<number> {
+  private getYearRange(from: Date, to: Date): number[] {
     const currentYear = new Date().getUTCFullYear();
     const startYear = from.getUTCFullYear();
 
@@ -55,10 +53,10 @@ export class MileageEstimator implements MileageEstimatorInterface {
       .map((v, idx) => currentYear - idx);
   }
 
-  private groupMileageByYear(events: Array<VehicleEventInterface>, yearRange: Array<number>) {
-    if (events.length <= 0) return [];
+  private groupMileageByYear(events: VehicleEventInterface[], yearRange: number[]) {
+    if (events.length === 0) return [];
 
-    let output: Array<{ [x: number]: number }> = [];
+    const output: { [x: number]: number }[] = [];
 
     yearRange
       .reverse()

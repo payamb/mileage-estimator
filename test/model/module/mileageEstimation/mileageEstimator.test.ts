@@ -37,7 +37,7 @@ describe('EstimateMileage Module', () => {
     expect(estimator.calculateAnnualMileage()).toEqual(500);
   });
 
-  it('Should calculate average annual mileage correctly when some events are not available', () => {
+  it('Should estimate current mileage based using average annual mileage', () => {
 
     const vehicle = new Vehicle({
       id: 123,

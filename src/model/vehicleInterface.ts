@@ -6,5 +6,5 @@ export interface VehicleInterface {
   make: string;
   model: string;
   firstRegistrationDate: Date;
-  events: Array<VehicleEventInterface>
+  events: VehicleEventInterface[]
 }
