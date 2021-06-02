@@ -1,8 +1,8 @@
 import { Vehicle } from './../../model/vehicle';
 
-interface MileageEstimatorInterface {
+export interface MileageEstimatorInterface {
   vehicle: Vehicle;
 
-  constructor(vehicle: Vehicle): MileageEstimatorInterface;
+  createFrom(vehicle: Vehicle): MileageEstimatorInterface;
   calculateAnnualMileage(): number;
 }
