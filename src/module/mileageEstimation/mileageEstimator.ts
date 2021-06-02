@@ -4,3 +4,6 @@
 
 // If there are no timeline events with mileage, calculate using 7,900 miles per year as the average
 
+export class MileageCalculator implements MileageEstimatorInterface {
+
+} 
