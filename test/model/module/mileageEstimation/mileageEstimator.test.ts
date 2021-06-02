@@ -4,6 +4,7 @@ import { AdvertisedForSaleEvent } from './../../../../src/model/event/advertised
 import { MotTestEvent } from './../../../../src/model/event/MotTest';
 
 describe('EstimateMileage Module', () => {
+
   it('Should calculate average annual mileage correctly with events available for every year', () => {
 
     const vehicle = new Vehicle({
@@ -33,6 +34,33 @@ describe('EstimateMileage Module', () => {
     const estimator = new MileageEstimator()
       .createFrom(vehicle);
 
-    expect(estimator.calculateAnnualMileage()).toEqual(750);
+    expect(estimator.calculateAnnualMileage()).toEqual(500);
+  });
+
+  it('Should calculate average annual mileage correctly when some events are not available', () => {
+
+    const vehicle = new Vehicle({
+      id: 123,
+      make: 'ford',
+      model: '1989',
+      vrm: 'a123ed',
+      firstRegistrationDate: new Date(),
+      events: []
+    });
+
+    vehicle.events.push(new AdvertisedForSaleEvent({
+      date: new Date('2018-12-10T03:24:00'),
+      mileage: 5000
+    }));
+
+    vehicle.events.push(new MotTestEvent({
+      date: new Date('2019-05-01T01:01:00'),
+      mileage: 10000
+    }));
+
+    const estimator = new MileageEstimator()
+      .createFrom(vehicle);
+
+    expect(estimator.calculateAnnualMileage()).toEqual(6450);
   });
 });

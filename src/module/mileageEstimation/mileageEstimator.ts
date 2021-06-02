@@ -1,9 +1,3 @@
-// Calculate the average annual mileage using the events in the timeline
-
-// Estimate the vehicle’s current mileage by projecting from the most recent, event using the average annual mileage
-
-// If there are no timeline events with mileage, calculate using 7,900 miles per year as the average
-
 import { Vehicle } from './../../model/vehicle';
 import { VehicleEventInterface } from './../../model/vehicleEventInterfce';
 import { MileageEstimatorInterface } from './mileageEstimatorInterface';
@@ -23,25 +17,36 @@ export class MileageEstimator implements MileageEstimatorInterface {
       return a.date.getTime() - b.date.getTime();
     });
 
-    const mileageByYear = this.groupMileageByYear(events, this.defaultAnnualMileage);
-    const totalMileage = mileageByYear.reduce(
-      (accumulator, currentValue, index, source) => {
-        return (accumulator ?? 0) + (currentValue ?? 0)
-      }, 0);
+    const yearRange = this.getYearRange(events[0].date, new Date());
+    const mileageHistory = this.groupMileageByYear(events, yearRange);
+    const NofRecords = mileageHistory.length;
 
-    const averageMileage = this.divideMileageByNofYears(totalMileage ?? 0, mileageByYear.length);
+    if (!mileageHistory.length) {
+      return 0;
+    }
+
+    const [lastKnownMileage]:number[] = Object.values(mileageHistory[NofRecords - 1]);
+
+    const averageMileage = this.divideMileageByNofYears(
+      lastKnownMileage,
+      mileageHistory.length
+    );
 
     return averageMileage;
   }
 
+  estimateCurrentMileage(): number {
+    return 0;
+  }
+
   private divideMileageByNofYears(mileage: number, numberOfYears: number): number {
     if (mileage <= 0) return 0;
-    
+
     const average = (mileage / numberOfYears).toFixed(0);
     return parseInt(average);
   }
 
-  private getYearRange(from: Date): Array<number> {
+  private getYearRange(from: Date, to: Date): Array<number> {
     const currentYear = new Date().getUTCFullYear();
     const startYear = from.getUTCFullYear();
 
@@ -50,20 +55,31 @@ export class MileageEstimator implements MileageEstimatorInterface {
       .map((v, idx) => currentYear - idx);
   }
 
-  private groupMileageByYear(events: Array<VehicleEventInterface>, defaultAnnualMileage: number) {
+  private groupMileageByYear(events: Array<VehicleEventInterface>, yearRange: Array<number>) {
     if (events.length <= 0) return [];
 
-    const yearRange = this.getYearRange(events[0].date);
+    let output: Array<{ [x: number]: number }> = [];
 
-    const output = yearRange.map((year: number) => {
-      const eventsInYear = events
-        .filter((event: VehicleEventInterface) => {
-          return event.date.getFullYear() === year && event.hasMileageData();
-        });
+    yearRange
+      .reverse()
+      .map((year: number, index, source) => {
+        const eventsInYear = events
+          .filter((event: VehicleEventInterface) => {
+            return event.date.getFullYear() === year && event.hasMileageData();
+          });
 
-      const mostRecentEvent = eventsInYear.pop();
-      return mostRecentEvent ? mostRecentEvent.mileage : defaultAnnualMileage;
-    });
+        const mostRecentEvent = eventsInYear.pop();
+        return mostRecentEvent?.mileage || 0;
+      })
+      .reduce((previousValue, current, index) => {
+        if (current === 0) {
+          current = previousValue + this.defaultAnnualMileage;
+        }
+
+        const year = yearRange[index];
+        output.push({ [year]: current });
+        return current;
+      }, 0);
 
     return output;
   }
