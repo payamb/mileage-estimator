@@ -5,6 +5,10 @@ export class VrmChangeEvent implements VehicleEventInterface {
   fromVrm: string;
   toVRM: string;
 
+  constructor(props?: object) {
+    Object.assign(this, props);
+  }
+
   hasMileageData(): boolean {
     return false;
   }

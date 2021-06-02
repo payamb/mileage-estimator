@@ -5,6 +5,10 @@ export class MotTestEvent implements VehicleEventInterface {
   mileage: number;
   result: boolean;
 
+  constructor(props?: object) {
+    Object.assign(this, props);
+  }
+
   hasMileageData(): boolean {
     return true;
   }
