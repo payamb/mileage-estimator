@@ -10,12 +10,10 @@ export class MileageEstimator implements MileageEstimatorInterface {
   vehicle: Vehicle;
 
   createFrom(vehicle: Vehicle) {
-    return Object.assign(this, {vehicle: vehicle});
-    // this.vehicle = vehicle;
-    // return this;
+    return Object.assign(this, { vehicle: vehicle });
   };
 
   calculateAnnualMileage(): number {
     return 0;
   }
-} 
+}
